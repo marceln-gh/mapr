@@ -34,4 +34,22 @@ public class MapLocator : IMapLocator
             throw new MapLocatorException(mapType, ex);
         }
     }
+
+    /// <inheritdoc />
+    public IComplexMap<TSource, TDestination> LocateComplexMapFor<TSource, TDestination>()
+    {
+        var mapType = typeof(IComplexMap<TSource, TDestination>);
+
+        try
+        {
+            if (_mapFactory(mapType) is not IComplexMap<TSource, TDestination> typeMap)
+                throw new MapNotFoundException(mapType);
+
+            return typeMap;
+        }
+        catch (Exception ex)
+        {
+            throw new MapLocatorException(mapType, ex);
+        }
+    }
 }

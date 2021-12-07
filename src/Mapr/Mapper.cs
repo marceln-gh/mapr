@@ -40,6 +40,12 @@ public class Mapper : IMapper
         return _locator.LocateMapFor<TSource, TDestination>().Map(source);
     }
 
+    /// <inheritdoc />
+    public TDestination Map<TSource, TDestination>(TSource source, TDestination destination)
+    {
+        return _locator.LocateComplexMapFor<TSource, TDestination>().Map(source, destination);
+    }
+
     /// <summary>
     /// Maps the provided collection of <paramref name="source"/> objects to the provided type <typeparamref name="TDestination"/>.
     /// </summary>

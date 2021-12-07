@@ -22,4 +22,13 @@ public interface IMapLocator
     /// <typeparam name="TDestination">The destination object type.</typeparam>
     /// <returns>An instance of <see cref="IMap{TSource,TTarget}"/></returns>
     public IMap<TSource, TDestination> LocateMapFor<TSource, TDestination>();
+
+    /// <summary>
+    /// Locates an instance of <see cref="IComplexMap{TSource,TTarget}"/> with the provided <typeparamref name="TSource"/>
+    /// and <typeparamref name="TDestination"/>
+    /// </summary>
+    /// <typeparam name="TSource">The source object type.</typeparam>
+    /// <typeparam name="TDestination">The destination object type.</typeparam>
+    /// <returns>An instance of <see cref="IComplexMap{TSource,TTarget}"/></returns>
+    public IComplexMap<TSource, TDestination> LocateComplexMapFor<TSource, TDestination>();
 }
