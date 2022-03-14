@@ -18,34 +18,23 @@ public class MapLocator : IMapLocator
     }
 
     /// <inheritdoc />
-    public IMap<TSource, TDestination> LocateMapFor<TSource, TDestination>()
+    public IMap<TSource, TDestination> LocateMapFor<TSource, TDestination>() =>
+        LocateMap<IMap<TSource, TDestination>, TSource, TDestination>();
+
+    /// <inheritdoc />
+    public IComplexMap<TSource, TDestination> LocateComplexMapFor<TSource, TDestination>() =>
+        LocateMap<IComplexMap<TSource, TDestination>, TSource, TDestination>();
+
+    private TMap LocateMap<TMap, TSource, TDestination>() where TMap : IMap<TSource, TDestination>
     {
-        var mapType = typeof(IMap<TSource, TDestination>);
+        var mapType = typeof(TMap);
 
         try
         {
-            if (_mapFactory(mapType) is not IMap<TSource, TDestination> typeMap)
+            if (_mapFactory(mapType) is not TMap typeMap)
             {
                 throw new MapNotFoundException(mapType);
             }
-
-            return typeMap;
-        }
-        catch (Exception ex)
-        {
-            throw new MapLocatorException(mapType, ex);
-        }
-    }
-
-    /// <inheritdoc />
-    public IComplexMap<TSource, TDestination> LocateComplexMapFor<TSource, TDestination>()
-    {
-        var mapType = typeof(IComplexMap<TSource, TDestination>);
-
-        try
-        {
-            if (_mapFactory(mapType) is not IComplexMap<TSource, TDestination> typeMap)
-                throw new MapNotFoundException(mapType);
 
             return typeMap;
         }

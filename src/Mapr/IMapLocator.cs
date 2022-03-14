@@ -8,7 +8,7 @@ namespace Mapr;
 /// <see cref="IMapLocator"/> and can be indirectly referenced. 
 /// </summary>
 public delegate object? MapFactory(Type mapTyp);
-    
+
 /// <summary>
 /// Represents an interface for locating <see cref="IMap{TSource,TTarget}"/> instances.
 /// </summary>
